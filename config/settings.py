@@ -41,11 +41,14 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'crispy_bootstrap5',
+    'allauth.account',
+    'allauth.socialaccount',
 
     # third app
     'accounts',
     'pages',
 ]
+SITE_ID=1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     "allauth.account.middleware.AccountMiddleware",
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -70,11 +75,26 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                # Already defined Django-related contexts here
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
 
+
+AUTHENTICATION_BACKENDS = [
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
+]
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
