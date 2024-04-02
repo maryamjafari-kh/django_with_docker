@@ -1,0 +1,17 @@
+
+{% extends "_base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}login page{% endblock title %}
+
+{% block content %}
+
+
+<form action="" method="post">
+    {% csrf_token %}
+    {% comment %} {{ form|crispy }} {% endcomment %}
+    {{ form|crispy }}
+    <input type="submit" value="login">
+</form>
+
+{% comment %} {% endblock  content%} {% endcomment %}
+{% endblock content %}
